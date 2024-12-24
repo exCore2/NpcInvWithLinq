@@ -197,6 +197,9 @@ public class NPCInvWithLinq : BaseSettingsPlugin<NPCInvWithLinqSettings>
 
     private void ProcessUnseenItems(List<string> unSeenItems, WindowSet storedTab, Element hoveredItem)
     {
+        if (unSeenItems == null) throw new ArgumentNullException(nameof(unSeenItems));
+        if (storedTab == null) throw new ArgumentNullException(nameof(storedTab));
+
         if (!unSeenItems.Contains($"Tab [{storedTab.Title}]"))
         {
             unSeenItems.Add($"Tab [{storedTab.Title}]");
@@ -221,6 +224,8 @@ public class NPCInvWithLinq : BaseSettingsPlugin<NPCInvWithLinqSettings>
 
     private void DrawTabNameElementFrame(Element tabNameElement, Element hoveredItem)
     {
+        if (tabNameElement == null) return;
+
         if (hoveredItem == null || !hoveredItem.Tooltip.GetClientRectCache.Intersects(tabNameElement.GetClientRectCache))
         {
             Graphics.DrawFrame(tabNameElement.GetClientRectCache, Settings.FrameColor, Settings.FrameThickness);
